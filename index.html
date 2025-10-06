@@ -137,10 +137,12 @@ form button:hover{background:#2ecc71}
   <button id="butonToate" onclick="afiseazaToateProdusele()" style="display:none;">Arată toate</button>
   <button onclick="window.open('produse.html','_blank')">Vezi doar produsele</button>
   <button onclick="exportaJSON()">💾 Exportă JSON</button>
+  <button onclick="updateCatalogOnGitHub()">⬆️ Salvează pe GitHub</button>
   <label style="background:#27ae60;color:#fff;">📂 Importă JSON
     <input type="file" accept=".json" style="display:none" onchange="importaJSON(event)">
   </label>
 </div>
+
 
 <!-- 🔍 Search bar -->
 <div id="searchContainer">
@@ -391,6 +393,7 @@ function init(){if(categorii.length===0)categorii=['Default'];
  actualizeazaTot();}
 window.onload=init;
 </script>
+  
   <script>
 const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
 
@@ -404,6 +407,61 @@ fetch(jsonURL)
   })
   .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
 </script>
+  <script>
+// 🔹 Configurare GitHub
+const username = "ionmihai88-maker"; // ex: "andrei-popescu"
+const repo = "produse";           // ex: "catalog-produse"
+const token = "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
+";  // ⚠️ token cu permisiunea 'repo'
+
+// 🔹 Funcția care salvează catalogul în GitHub
+async function updateCatalogOnGitHub() {
+  const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/catalog.json`;
+
+  const data = {
+    categorii,
+    subcategorii,
+    produse
+  };
+
+  try {
+    // Pasul 1: Obține SHA-ul fișierului actual
+    const res = await fetch(apiUrl, {
+      headers: { Authorization: `token ${token}` }
+    });
+    const fileData = await res.json();
+
+    const sha = fileData.sha;
+
+    // Pasul 2: Creează commit nou cu fișierul actualizat
+    const updateRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Actualizare automată catalog.json din index.html",
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+        sha
+      })
+    });
+
+    if (updateRes.ok) {
+      alert("✅ catalog.json a fost actualizat cu succes pe GitHub!");
+    } else {
+      const err = await updateRes.text();
+      console.error(err);
+      alert("❌ Eroare la actualizarea fișierului în GitHub!");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("❌ A apărut o eroare la conexiunea cu GitHub.");
+  }
+}
+</script>
+
 </body>
 </html>
+
 
