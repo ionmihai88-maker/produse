@@ -391,5 +391,19 @@ function init(){if(categorii.length===0)categorii=['Default'];
  actualizeazaTot();}
 window.onload=init;
 </script>
+  <script>
+const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
+
+fetch(jsonURL)
+  .then(r => r.json())
+  .then(data => {
+    localStorage.setItem("categorii", JSON.stringify(data.categorii || []));
+    localStorage.setItem("subcategorii", JSON.stringify(data.subcategorii || []));
+    localStorage.setItem("produse", JSON.stringify(data.produse || []));
+    if (typeof afiseazaProduse === "function") afiseazaProduse();
+  })
+  .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
+</script>
 </body>
 </html>
+
