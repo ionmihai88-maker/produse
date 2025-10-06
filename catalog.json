@@ -1,63 +1,56 @@
 {
   "categorii": [
-    "beko",
-    "Aer conditionat",
-    "asda"
+    "BEKO",
+    "AER CONDITIONAT"
   ],
   "subcategorii": [
     {
-      "nume": "test beko",
-      "categorie": "beko"
+      "nume": "Aparate frigorifice",
+      "categorie": "BEKO"
     },
     {
-      "nume": "test aer",
-      "categorie": "Aer conditionat"
+      "nume": "ARISTON",
+      "categorie": "AER CONDITIONAT"
     },
     {
-      "nume": "12312312",
-      "categorie": "asda"
+      "nume": "Mașini de spălat rufe",
+      "categorie": "BEKO"
+    },
+    {
+      "nume": "Aparate pentru gătit",
+      "categorie": "BEKO"
+    },
+    {
+      "nume": "Mașini de spălat vase",
+      "categorie": "BEKO"
     }
   ],
   "produse": [
     {
-      "id": 1759476742970,
-      "nume": "test",
-      "pret": 123,
-      "pret36": 12,
+      "id": 1759748564813,
+      "nume": "Combină frigorifică Beko B3RCNE564HDXB1",
+      "pret": 5400,
+      "pret36": 150,
+      "descriere": "Clasă energetică: E  | Volum net total: 490 litri | Consum de energie: 0,8 kWh/zi | Capacitate congelare: 7,8 kg/24h",
       "stoc": true,
-      "categorie": "beko",
-      "subcategorie": "test beko",
-      "descriere": "Ceva despre acest produs_1"
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-B3RCNE564HDXB1.webp"
     },
     {
-      "id": 1759476743853,
-      "nume": "test123",
-      "pret": 123,
-      "pret36": 12,
+      "id": 1759749558523,
+      "nume": "Combină frigorifică Beko B5RCNA365HG",
+      "pret": 4104,
+      "pret36": 114,
+      "descriere": "Clasă energetică: D  | Volum net total: 316 litri \u0003Consum de energie: 0,543 kWh/zi | Capacitate congelare: 6 kg/24h",
       "stoc": true,
-      "categorie": "beko",
-      "subcategorie": "test beko",
-      "descriere": "Ceva despre acest produs_2"
-    },
-    {
-      "id": 1759487984440,
-      "nume": "1213",
-      "pret": 132,
-      "pret36": 213,
-      "stoc": false,
-      "categorie": "Aer conditionat",
-      "subcategorie": "test aer",
-      "descriere": "fara descriere"
-    },
-    {
-      "id": 1759732940873,
-      "nume": "123123124",
-      "pret": 12,
-      "pret36": 33,
-      "descriere": "test",
-      "stoc": true,
-      "categorie": "asda",
-      "subcategorie": "12312312"
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-B5RCNA365HG.webp"
     }
   ]
 }
