@@ -44,13 +44,26 @@
       "nume": "Combină frigorifică Beko B5RCNA365HG",
       "pret": 4104,
       "pret36": 114,
-      "descriere": "Clasă energetică: D  | Volum net total: 316 litri | Consum de energie: 0,543 kWh/zi | Capacitate congelare: 6 kg/24h",
+      "descriere": "Clasă energetică: D  | Volum net total: 316 litri \u0003Consum de energie: 0,543 kWh/zi | Capacitate congelare: 6 kg/24h",
       "stoc": true,
       "categorie": "BEKO",
       "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/card-B5RCNA365HG.webp"
+    },
+    {
+      "id": 1759758761244,
+      "nume": "Combină frigorifică incorporabilă Beko BCSA285K4SN",
+      "pret": 2736,
+      "pret36": 76,
+      "descriere": "Clasă energetică: E  | Volum net total: 271 litri | Consum de energie: 0,616 kWh/zi | Capacitate congelare: 3,6 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-BCSA285K4SN.webp"
     }
   ]
 }
