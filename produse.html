@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catalog Produse – PDF fără erori imagini</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #f4f4f4;
+  color: #222;
+  padding: 24px;
+}
+#toolbar {
+  text-align: center;
+  margin-bottom: 15px;
+}
+#toolbar button {
+  background: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#toolbar button:hover { background: #3498db; }
+
+#stockStatus {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#checkboxFilters {
+  margin: 0 auto 15px auto;
+  width: 85%;
+  text-align: left;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+#checkboxFilters h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+#checkboxFilters .categorie {
+  margin-bottom: 8px;
+}
+#checkboxFilters label {
+  margin-right: 10px;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.pdfPage {
+  position: relative;
+  width: 794px;
+  height: 1122px;
+  overflow: hidden;
+  margin: 0 auto 20px auto;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+.bgFull {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.contentZone {
+  position: absolute;
+  top: 230px;
+  bottom: 120px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.produs {
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px;
+  overflow: hidden;
+}
+.produs strong {
+  font-size: 0.85rem;
+  color: #2c3e50;
+}
+.produs small {
+  color: #555;
+  display: block;
+  font-size: 0.7rem;
+  margin-bottom: 4px;
+}
+.produs .poza {
+  flex: 1;
+  width: 100%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+.produs .poza img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+}
+.produs .poza span {
+  font-size: 0.7rem;
+  color: #666;
+}
+.produs p {
+  margin: 1px 0;
+  font-size: 0.7rem;
+}
+
+.contactBar {
+  position: absolute;
+  bottom: 4px;
+  left: 35px;
+  right: 35px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 2;
+  font-size: 0.9rem;
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+}
+.contactBar div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.contactBar i {
+  font-size: 1rem;
+}
+.contactBar input {
+  border: none;
+  border-bottom: 1px solid #444;
+  background: transparent;
+  width: 180px;
+  font-size: 0.9rem;
+  text-align: center;
+  outline: none;
+  color: #000;
+  line-height: 1.2rem;
+  padding-bottom: 2px;
+}
+.contactBar input::placeholder {
+  color: #777;
+  font-style: italic;
+}
+.pdfExport .contactBar input {
+  border-bottom: none !important;
+  line-height: 1.4rem;
+  padding-bottom: 2px;
+}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <button id="toggleStock"><i class="fas fa-boxes"></i> Afișează/ascunde fără stoc</button>
+  <span id="stockStatus">✅ În stoc</span>
+  <button id="btnPDF"><i class="fas fa-file-pdf"></i> Salvează PDF</button>
+</div>
+
+<div id="checkboxFilters">
+  <h3>Bifează ce categorii și subcategorii vrei să apară:</h3>
+  <div id="categoriiContainer"></div>
+</div>
+
+<div id="preview"></div>
+
+<script>
+const produse = JSON.parse(localStorage.getItem('produse')) || [];
+let arataFaraStoc = false;
+
+function getPozaPath(path) {
+  if (!path) return "";
+  if (path.startsWith("photo/") || path.startsWith("data:") || path.startsWith("http")) return path;
+  return "photo/" + path.replace(/^\/+/, "");
+}
+
+function preincarcaImagine(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(src);
+    img.onerror = () => resolve(""); // dacă nu există, continuăm
+    img.crossOrigin = "anonymous";
+    img.src = src;
+  });
+}
+
+async function verificaSiCorecteazaImagini() {
+  for (let p of produse) {
+    const realPath = getPozaPath(p.poza);
+    p.poza = await preincarcaImagine(realPath);
+  }
+}
+
+function sincronizeazaContact() {
+  const nume = document.querySelector(".contactBar input#nume")?.value || "";
+  const email = document.querySelector(".contactBar input#email")?.value || "";
+  const tel = document.querySelector(".contactBar input#telefon")?.value || "";
+  localStorage.setItem("contact", JSON.stringify({ nume, email, tel }));
+  document.querySelectorAll(".contactBar").forEach(bar => {
+    const n = bar.querySelector("#nume");
+    const e = bar.querySelector("#email");
+    const t = bar.querySelector("#telefon");
+    if (n && n.value !== nume) n.value = nume;
+    if (e && e.value !== email) e.value = email;
+    if (t && t.value !== tel) t.value = tel;
+  });
+}
+
+function construiesteCheckboxuri() {
+  const container = document.getElementById("categoriiContainer");
+  const categorii = {};
+  produse.forEach(p => {
+    if (!categorii[p.categorie]) categorii[p.categorie] = new Set();
+    categorii[p.categorie].add(p.subcategorie);
+  });
+  container.innerHTML = "";
+  for (const [cat, subs] of Object.entries(categorii)) {
+    const div = document.createElement("div");
+    div.className = "categorie";
+    let html = `<strong>${cat}</strong><br>`;
+    subs.forEach(sub => {
+      const id = `${cat}-${sub}`.replace(/\s+/g, "_");
+      html += `<label><input type="checkbox" class="chkSub" data-cat="${cat}" data-sub="${sub}" checked> ${sub}</label>`;
+    });
+    div.innerHTML = html;
+    container.appendChild(div);
+  }
+  document.querySelectorAll(".chkSub").forEach(chk => chk.addEventListener("change", afiseazaProduse));
+}
+
+function afiseazaProduse() {
+  const preview = document.getElementById("preview");
+  const lista = arataFaraStoc ? produse : produse.filter(p => p.stoc);
+  const bife = document.querySelectorAll(".chkSub:checked");
+  const combinatii = new Set(Array.from(bife).map(b => `${b.dataset.cat}|${b.dataset.sub}`));
+  const filtrate = lista.filter(p => combinatii.size === 0 || combinatii.has(`${p.categorie}|${p.subcategorie}`));
+  preview.innerHTML = "";
+  const pagini = [];
+  for (let i = 0; i < filtrate.length; i += 9) pagini.push(filtrate.slice(i, i + 9));
+  const contactSalvat = JSON.parse(localStorage.getItem("contact") || "{}");
+  pagini.forEach(lot => {
+    const page = document.createElement("div");
+    page.className = "pdfPage";
+    page.innerHTML = `
+      <img class="bgFull" src="back.png" alt="background">
+      <div class="contentZone"><div class="catalog"></div></div>
+      <div class="contactBar">
+        <div><i class="fas fa-user" style="color:#5b2c83;"></i><input id="nume" type="text" placeholder="Nume reprezentant" value="${contactSalvat.nume || ""}"></div>
+        <div><i class="fas fa-envelope" style="color:#2980b9;"></i><input id="email" type="text" placeholder="exemplu@email.com" value="${contactSalvat.email || ""}"></div>
+        <div><i class="fas fa-phone" style="color:#e91e63;"></i><input id="telefon" type="text" placeholder="+40 7xx xxx xxx" value="${contactSalvat.tel || ""}"></div>
+      </div>`;
+    const catalog = page.querySelector(".catalog");
+    lot.forEach(p => {
+      const pozaHTML = p.poza
+        ? `<div class="poza"><img src="${p.poza}" alt="produs"></div>`
+        : `<div class="poza"><span>fără imagine</span></div>`;
+      const card = document.createElement("div");
+      card.className = "produs";
+      card.innerHTML = `
+        <div><strong>${p.nume}</strong>
+        <small>${p.categorie || ""} | ${p.subcategorie || ""}${p.subsubcategorie ? " | " + p.subsubcategorie : ""}</small></div>
+        ${pozaHTML}
+        <div>
+          <p><b>Preț:</b> ${p.pret} lei</p>
+          ${p.pret36 ? `<p><b>36 luni:</b> ${p.pret36} lei</p>` : ""}
+          ${p.descriere ? `<p>${p.descriere}</p>` : ""}
+        </div>`;
+      catalog.appendChild(card);
+    });
+    preview.appendChild(page);
+  });
+  document.querySelectorAll(".contactBar input").forEach(inp => inp.addEventListener("input", sincronizeazaContact));
+}
+
+document.getElementById("toggleStock").addEventListener("click", () => {
+  arataFaraStoc = !arataFaraStoc;
+  document.getElementById("stockStatus").textContent = arataFaraStoc ? "❌ Toate produsele" : "✅ În stoc";
+  document.getElementById("stockStatus").style.color = arataFaraStoc ? "#c0392b" : "#27ae60";
+  afiseazaProduse();
+});
+
+document.getElementById("btnPDF").addEventListener("click", async () => {
+  const toolbar = document.getElementById("toolbar");
+  const filters = document.getElementById("checkboxFilters");
+  toolbar.style.display = "none";
+  filters.style.display = "none";
+  document.body.classList.add("pdfExport");
+  window.scrollTo(0, 0);
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const pages = document.querySelectorAll(".pdfPage");
+    const pdf = new jsPDF({ unit: "pt", format: "a4", orientation: "portrait" });
+    for (let i = 0; i < pages.length; i++) {
+      const canvas = await html2canvas(pages[i], { scale: 2, useCORS: true, allowTaint: true, backgroundColor: null });
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      if (i > 0) pdf.addPage();
+      pdf.addImage(imgData, "JPEG", 0, 0, 595.28, 841.89);
+    }
+    pdf.save("catalog-produse.pdf");
+  } catch (err) {
+    console.error("Eroare PDF:", err);
+    alert("Eroare la generarea PDF-ului, dar scriptul a continuat fără a bloca aplicația.");
+  } finally {
+    document.body.classList.remove("pdfExport");
+    toolbar.style.display = "block";
+    filters.style.display = "block";
+  }
+});
+
+(async () => {
+  await verificaSiCorecteazaImagini();
+  construiesteCheckboxuri();
+  afiseazaProduse();
+})();
+</script>
+</body>
+</html>

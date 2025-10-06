@@ -1,0 +1,63 @@
+{
+  "categorii": [
+    "beko",
+    "Aer conditionat",
+    "asda"
+  ],
+  "subcategorii": [
+    {
+      "nume": "test beko",
+      "categorie": "beko"
+    },
+    {
+      "nume": "test aer",
+      "categorie": "Aer conditionat"
+    },
+    {
+      "nume": "12312312",
+      "categorie": "asda"
+    }
+  ],
+  "produse": [
+    {
+      "id": 1759476742970,
+      "nume": "test",
+      "pret": 123,
+      "pret36": 12,
+      "stoc": true,
+      "categorie": "beko",
+      "subcategorie": "test beko",
+      "descriere": "Ceva despre acest produs_1"
+    },
+    {
+      "id": 1759476743853,
+      "nume": "test123",
+      "pret": 123,
+      "pret36": 12,
+      "stoc": true,
+      "categorie": "beko",
+      "subcategorie": "test beko",
+      "descriere": "Ceva despre acest produs_2"
+    },
+    {
+      "id": 1759487984440,
+      "nume": "1213",
+      "pret": 132,
+      "pret36": 213,
+      "stoc": false,
+      "categorie": "Aer conditionat",
+      "subcategorie": "test aer",
+      "descriere": "fara descriere"
+    },
+    {
+      "id": 1759732940873,
+      "nume": "123123124",
+      "pret": 12,
+      "pret36": 33,
+      "descriere": "test",
+      "stoc": true,
+      "categorie": "asda",
+      "subcategorie": "12312312"
+    }
+  ]
+}

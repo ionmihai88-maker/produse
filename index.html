@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalog Produse complet</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  background:#f0f4f8;
+  margin:0;
+  padding:20px;
+  color:#333;
+}
+h1{text-align:center;color:#2c3e50;margin-bottom:10px}
+#filtruContainer{text-align:center;margin-bottom:20px}
+#filtruContainer button,label{
+  margin:4px 5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:500;
+  transition:all .2s ease-in-out;
+}
+#filtruContainer button{background:#2980b9;color:#fff}
+#filtruContainer button:hover{background:#3498db}
+label[for]{cursor:pointer}
+.categorie-subcategorie-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:30px
+}
+.categorie-section,.subcategorie-section{
+  flex:1 1 45%;
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1)
+}
+h2{
+  margin-top:0;
+  color:#34495e;
+  border-bottom:2px solid #2980b9;
+  padding-bottom:6px
+}
+ul{list-style:none;padding:0}
+li{margin-bottom:6px}
+li button{
+  margin-left:6px;
+  padding:4px 8px;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:.9em;
+  transition:all .2s;
+}
+li button:first-of-type{background:#f39c12;color:#fff}
+li button:last-of-type{background:#e74c3c;color:#fff}
+li button:hover{opacity:.85}
+
+.produs{
+  background:#fff;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:15px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+  line-height:1.5;
+}
+.produs strong{color:#2c3e50;font-size:1.1em}
+.produs img{
+  max-width:120px;
+  border-radius:8px;
+  margin-top:6px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+.btn-actiune{
+  display:inline-block;
+  margin:4px 5px 0 0;
+  padding:6px 12px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  color:#fff;
+  font-weight:500;
+  font-size:.9em;
+  transition:transform .1s,opacity .2s;
+}
+.btn-edit{background:#2980b9}
+.btn-delete{background:#e74c3c}
+.btn-save{background:#27ae60}
+.btn-cancel{background:#7f8c8d}
+.btn-actiune:hover{opacity:.9;transform:scale(1.05)}
+input,textarea,select{
+  border:1px solid #ccc;
+  border-radius:6px;
+  padding:6px;
+  font-size:.95em;
+  width:100%;
+  box-sizing:border-box;
+}
+form button{
+  background:#27ae60;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:8px 14px;
+  cursor:pointer;
+  margin-top:10px;
+  transition:all .2s;
+}
+form button:hover{background:#2ecc71}
+
+/* Search bar styling */
+#searchContainer {
+  text-align:center;
+  margin:20px auto;
+}
+#searchInput {
+  width:60%;
+  padding:10px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  font-size:1rem;
+  box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body>
+
+<h1>Catalog Produse complet</h1>
+
+<div id="filtruContainer">
+  <button id="butonFiltru" onclick="filtreazaInStoc()">Arată doar în stoc</button>
+  <button id="butonToate" onclick="afiseazaToateProdusele()" style="display:none;">Arată toate</button>
+  <button onclick="window.open('produse.html','_blank')">Vezi doar produsele</button>
+  <button onclick="exportaJSON()">💾 Exportă JSON</button>
+  <label style="background:#27ae60;color:#fff;">📂 Importă JSON
+    <input type="file" accept=".json" style="display:none" onchange="importaJSON(event)">
+  </label>
+</div>
+
+<!-- 🔍 Search bar -->
+<div id="searchContainer">
+  <input type="text" id="searchInput" placeholder="Caută produs după nume...">
+</div>
+
+<div class="categorie-subcategorie-container">
+  <div class="categorie-section">
+    <h2>Categorii</h2>
+    <input type="text" id="categorieInput" placeholder="Nume categorie">
+    <button onclick="adaugaCategorie()">Adaugă</button>
+    <ul id="listaCategorii"></ul>
+  </div>
+  <div class="subcategorie-section">
+    <h2>Subcategorii</h2>
+    <select id="selectCategorieSub" onchange="actualizeazaListaSubcategorii()"></select>
+    <input type="text" id="subcategorieInput" placeholder="Nume subcategorie">
+    <button onclick="adaugaSubcategorie()">Adaugă</button>
+    <ul id="listaSubcategorii"></ul>
+  </div>
+</div>
+
+<section>
+<h2>Produse</h2>
+<form id="formularProdus" onsubmit="adaugaProdus(event)">
+  <input type="text" id="numeProdus" placeholder="Nume produs" required>
+  <input type="number" id="pretProdus" placeholder="Preț" required>
+  <input type="number" id="pret36" placeholder="Preț 36 luni">
+  <textarea id="descriereProdus" placeholder="Descriere produs"></textarea>
+  <select id="stocProdus">
+    <option value="true">În stoc</option>
+    <option value="false">Nu în stoc</option>
+  </select>
+  <select id="selectCategorieProdus" onchange="actualizeazaListaSubcategoriiProdus()"></select>
+  <select id="selectSubcategorieProdus"></select>
+  <input type="text" id="subsubcategorieInput" placeholder="Sub-subcategorie (opțional)">
+  <label><input type="checkbox" id="afiseazaSubsub"> Afișează sub-subcategoria</label>
+
+  <input type="file" id="pozaProdus" accept="image/*">
+  <img id="previewPoza" style="display:none;max-width:120px;margin-top:6px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.2);">
+
+  <button type="submit"><i class="fas fa-plus"></i> Adaugă produs</button>
+</form>
+</section>
+
+<div id="listaProduse"></div>
+
+<script>
+let categorii=JSON.parse(localStorage.getItem('categorii'))||[];
+let subcategorii=JSON.parse(localStorage.getItem('subcategorii'))||[];
+let produse=JSON.parse(localStorage.getItem('produse'))||[];
+let filtratInStoc=false;
+let imagineCurenta="";
+let textCautare=""; // 🔍 variabilă pentru search
+
+function salveaza(){
+  localStorage.setItem('categorii',JSON.stringify(categorii));
+  localStorage.setItem('subcategorii',JSON.stringify(subcategorii));
+  localStorage.setItem('produse',JSON.stringify(produse));
+}
+
+/* Previzualizare imagine */
+document.getElementById("pozaProdus").addEventListener("change", function() {
+  const file = this.files[0];
+  if (!file) return;
+  imagineCurenta = "photo/" + file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById("previewPoza");
+    img.src = e.target.result;
+    img.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+});
+
+/* 🔍 Căutare produse după nume */
+document.getElementById("searchInput").addEventListener("input", function() {
+  textCautare = this.value.toLowerCase().trim();
+  afiseazaProduse();
+});
+
+/* EXPORT / IMPORT */
+function exportaJSON(){
+ const data={categorii,subcategorii,produse};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');
+ a.href=url;a.download='catalog.json';a.click();URL.revokeObjectURL(url);
+}
+function importaJSON(e){
+ const file=e.target.files[0];if(!file)return;
+ const r=new FileReader();r.onload=ev=>{
+  try{const d=JSON.parse(ev.target.result);
+   categorii=d.categorii||[];subcategorii=d.subcategorii||[];produse=d.produse||[];
+   salveaza();init();alert('Date importate cu succes!');}
+  catch{alert('Fișier invalid!');}};r.readAsText(file);
+}
+
+/* Categorii */
+function actualizeazaListaCategorii(){
+ const ul=document.getElementById('listaCategorii');ul.innerHTML='';
+ categorii.forEach(c=>{
+  ul.innerHTML+=`<li>${c}
+  <button onclick="stergeCategorie('${c}')"><i class='fas fa-trash'></i></button></li>`;
+ });
+ actualizeazaSelecturi();
+}
+function adaugaCategorie(){
+ const n=document.getElementById('categorieInput').value.trim();
+ if(n&&!categorii.includes(n)){categorii.push(n);salveaza();actualizeazaListaCategorii();
+ document.getElementById('categorieInput').value='';}
+}
+function stergeCategorie(c){
+ if(confirm('Ștergi categoria și tot conținutul?')){
+  categorii=categorii.filter(x=>x!==c);
+  subcategorii=subcategorii.filter(s=>s.categorie!==c);
+  produse=produse.filter(p=>p.categorie!==c);
+  salveaza();actualizeazaTot();
+ }}
+
+/* Subcategorii */
+function actualizeazaListaSubcategorii(){
+ const cat=document.getElementById('selectCategorieSub').value;
+ const ul=document.getElementById('listaSubcategorii');ul.innerHTML='';
+ subcategorii.filter(s=>s.categorie===cat).forEach(s=>{
+  ul.innerHTML+=`<li>${s.nume}
+   <button onclick="stergeSubcategorie('${s.nume}','${s.categorie}')"><i class='fas fa-trash'></i></button></li>`;
+ });
+}
+function adaugaSubcategorie(){
+ const n=document.getElementById('subcategorieInput').value.trim();
+ const c=document.getElementById('selectCategorieSub').value;
+ if(n&&c&&!subcategorii.some(s=>s.nume===n&&s.categorie===c)){
+  subcategorii.push({nume:n,categorie:c});salveaza();actualizeazaListaSubcategorii();
+  document.getElementById('subcategorieInput').value='';
+ }}
+function stergeSubcategorie(n,c){
+ if(confirm('Ștergi subcategoria?')){
+  subcategorii=subcategorii.filter(s=>!(s.nume===n&&s.categorie===c));
+  produse=produse.filter(p=>!(p.subcategorie===n&&p.categorie===c));
+  salveaza();actualizeazaTot();
+ }}
+
+/* Produse */
+function adaugaProdus(e){
+ e.preventDefault();
+ const nume=document.getElementById('numeProdus').value.trim();
+ const pret=parseFloat(document.getElementById('pretProdus').value);
+ const pret36=parseFloat(document.getElementById('pret36').value);
+ const descriere=document.getElementById('descriereProdus').value.trim();
+ const stoc=document.getElementById('stocProdus').value==='true';
+ const categorie=document.getElementById('selectCategorieProdus').value;
+ const subcategorie=document.getElementById('selectSubcategorieProdus').value;
+ const subsub=document.getElementById('subsubcategorieInput').value.trim();
+ const afisSubsub=document.getElementById('afiseazaSubsub').checked;
+ if(nume&&!isNaN(pret)){
+  produse.push({id:Date.now(),nume,pret,pret36,descriere,stoc,categorie,subcategorie,subsubcategorie:subsub,afiseazaSubsub,poza:imagineCurenta});
+  salveaza();afiseazaProduse();
+  document.getElementById('formularProdus').reset();
+  document.getElementById('previewPoza').style.display="none";
+  imagineCurenta="";
+ }}
+
+function afiseazaProduse(){
+ const cont=document.getElementById('listaProduse');cont.innerHTML='';
+ const list=filtratInStoc?produse.filter(p=>p.stoc):produse;
+ const filtrate=list.filter(p=>p.nume.toLowerCase().includes(textCautare)); // 🔍 aplica filtrul de căutare
+
+ listFiltrat=filtrate;
+ filtrate.forEach(p=>{
+  cont.innerHTML+=`
+    <div class='produs' id='produs-${p.id}'>
+      <strong>${p.nume}</strong><br>
+      <small><em>${p.categorie} → ${p.subcategorie}${p.afiseazaSubsub && p.subsubcategorie ? " → "+p.subsubcategorie : ""}</em></small><br>
+      Preț: <b>${p.pret}</b> | 36 luni: <b>${p.pret36 || '-'}</b><br>
+      Descriere: ${p.descriere || '-'}<br>
+      Stoc: ${p.stoc?'✅ În stoc':'❌ Fără stoc'}<br>
+      ${p.poza ? `<img src="${p.poza}" alt="poza produs">` : ''}<br>
+      <label><input type='checkbox' ${p.afiseazaSubsub?'checked':''} onchange='toggleSubsub(${p.id},this.checked)'> Afișează sub-subcategoria</label><br>
+      <button class='btn-actiune btn-edit' onclick='editeazaProdus(${p.id})'><i class='fas fa-edit'></i> Editează</button>
+      <button class='btn-actiune btn-delete' onclick='stergeProdus(${p.id})'><i class='fas fa-trash'></i> Șterge</button>
+    </div>`;
+ });
+}
+
+function toggleSubsub(id,val){
+ const p=produse.find(x=>x.id===id);
+ if(p){p.afiseazaSubsub=val;salveaza();}
+}
+
+function editeazaProdus(id){
+ const p=produse.find(x=>x.id===id);
+ const div=document.getElementById('produs-'+id);
+ div.innerHTML=`
+   <input id='nume-${id}' value='${p.nume}'><br>
+   <input id='pret-${id}' type='number' step='0.01' value='${p.pret}'><br>
+   <input id='pret36-${id}' type='number' step='0.01' value='${p.pret36 || ''}'><br>
+   <textarea id='desc-${id}' rows='3'>${p.descriere || ''}</textarea><br>
+   <input id='subsub-${id}' value='${p.subsubcategorie || ''}' placeholder='Sub-subcategorie'><br>
+   <label><input type='checkbox' id='afis-${id}' ${p.afiseazaSubsub?'checked':''}> Afișează sub-subcategoria</label><br>
+   <select id='stoc-${id}'>
+     <option value='true' ${p.stoc?'selected':''}>În stoc</option>
+     <option value='false' ${!p.stoc?'selected':''}>Nu în stoc</option>
+   </select><br>
+   <button class='btn-actiune btn-save' onclick='salveazaProdus(${p.id})'><i class="fas fa-save"></i> Salvează</button>
+   <button class='btn-actiune btn-cancel' onclick='afiseazaProduse()'><i class="fas fa-times"></i> Anulează</button>
+ `;
+}
+
+function salveazaProdus(id){
+ const p=produse.find(x=>x.id===id);
+ p.nume=document.getElementById('nume-'+id).value.trim();
+ p.pret=parseFloat(document.getElementById('pret-'+id).value);
+ p.pret36=parseFloat(document.getElementById('pret36-'+id).value);
+ p.descriere=document.getElementById('desc-'+id).value.trim();
+ p.subsubcategorie=document.getElementById('subsub-'+id).value.trim();
+ p.afiseazaSubsub=document.getElementById('afis-'+id).checked;
+ p.stoc=document.getElementById('stoc-'+id).value==='true';
+ salveaza();afiseazaProduse();
+}
+
+function stergeProdus(id){
+ if(confirm('Ștergi produsul?')){produse=produse.filter(p=>p.id!==id);
+ salveaza();afiseazaProduse();}
+}
+
+function actualizeazaSelecturi(){
+ const catOpt=categorii.map(c=>`<option value='${c}'>${c}</option>`).join('');
+ document.getElementById('selectCategorieProdus').innerHTML=catOpt;
+ document.getElementById('selectCategorieSub').innerHTML=catOpt;
+ actualizeazaListaSubcategoriiProdus();
+}
+
+function actualizeazaListaSubcategoriiProdus(){
+ const cat=document.getElementById('selectCategorieProdus').value;
+ const opt=subcategorii.filter(s=>s.categorie===cat)
+ .map(s=>`<option value='${s.nume}'>${s.nume}</option>`).join('');
+ document.getElementById('selectSubcategorieProdus').innerHTML=opt;
+}
+
+function actualizeazaTot(){actualizeazaListaCategorii();actualizeazaListaSubcategorii();afiseazaProduse();}
+function filtreazaInStoc(){filtratInStoc=true;afiseazaProduse();
+ document.getElementById('butonFiltru').style.display='none';
+ document.getElementById('butonToate').style.display='inline-block';}
+function afiseazaToateProdusele(){filtratInStoc=false;afiseazaProduse();
+ document.getElementById('butonFiltru').style.display='inline-block';
+ document.getElementById('butonToate').style.display='none';}
+function init(){if(categorii.length===0)categorii=['Default'];
+ actualizeazaTot();}
+window.onload=init;
+</script>
+</body>
+</html>
