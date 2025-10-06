@@ -433,7 +433,7 @@ async function updateCatalogOnGitHub() {
 
     const sha = fileData.sha;
 
-    // Pasul 2: Creează commit nou cu fișierul actualizat
+    // Pasul 2: Creează un commit nou cu fișierul actualizat
     const updateRes = await fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -442,7 +442,7 @@ async function updateCatalogOnGitHub() {
       },
       body: JSON.stringify({
         message: "Actualizare automată catalog.json din index.html",
-        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+        content: btoa(JSON.stringify(data, null, 2)),  // Codificare corectă în base64
         sha
       })
     });
@@ -463,6 +463,7 @@ async function updateCatalogOnGitHub() {
 
 </body>
 </html>
+
 
 
 
