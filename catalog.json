@@ -51,6 +51,19 @@
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/card-B5RCNA365HG.webp"
+    },
+    {
+      "id": 1759758018930,
+      "nume": "test",
+      "pret": 12312,
+      "pret36": 2131,
+      "descriere": "",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/Ariston-Logo-2003.png"
     }
   ]
 }
