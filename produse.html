@@ -30,6 +30,7 @@ body {
   margin: 4px;
   font-weight: 600;
   cursor: pointer;
+  transition: all .2s ease;
 }
 #toolbar button:hover { background: #3498db; }
 
@@ -144,6 +145,7 @@ body {
   font-size: 0.7rem;
 }
 
+/* Bara contact */
 .contactBar {
   position: absolute;
   bottom: 4px;
@@ -152,7 +154,7 @@ body {
   height: 45px;
   background: rgba(255, 255, 255, 0.65);
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -180,10 +182,19 @@ body {
   color: #000;
   line-height: 1.2rem;
   padding-bottom: 2px;
+  transition: font-size .2s ease;
 }
 .contactBar input::placeholder {
   color: #777;
   font-style: italic;
+}
+.contactBar input#email {
+  width: auto;
+  min-width: 160px;
+  max-width: 280px;
+  font-size: clamp(0.6rem, 1vw, 0.9rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .pdfExport .contactBar input {
   border-bottom: none !important;
@@ -195,6 +206,7 @@ body {
 <body>
 
 <div id="toolbar">
+  <button onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> Înapoi la Index</button>
   <button id="toggleStock"><i class="fas fa-boxes"></i> Afișează/ascunde fără stoc</button>
   <span id="stockStatus">✅ În stoc</span>
   <button id="btnPDF"><i class="fas fa-file-pdf"></i> Salvează PDF</button>
@@ -221,7 +233,7 @@ function preincarcaImagine(src) {
   return new Promise(resolve => {
     const img = new Image();
     img.onload = () => resolve(src);
-    img.onerror = () => resolve(""); // dacă nu există, continuăm
+    img.onerror = () => resolve("");
     img.crossOrigin = "anonymous";
     img.src = src;
   });
@@ -306,7 +318,6 @@ function afiseazaProduse() {
         <div>
           <p><b>Preț:</b> ${p.pret} lei</p>
           ${p.pret36 ? `<p><b>36 luni:</b> ${p.pret36} lei</p>` : ""}
-          ${p.descriere ? `<p>${p.descriere}</p>` : ""}
         </div>`;
       catalog.appendChild(card);
     });
@@ -357,7 +368,8 @@ document.getElementById("btnPDF").addEventListener("click", async () => {
   afiseazaProduse();
 })();
 </script>
-    <script>
+
+<script>
 const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
 
 fetch(jsonURL)
@@ -370,6 +382,6 @@ fetch(jsonURL)
   })
   .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
 </script>
+
 </body>
 </html>
-
