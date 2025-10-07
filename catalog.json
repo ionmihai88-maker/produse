@@ -140,7 +140,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-BM3WFSU49415WB.webp"
     },
     {
@@ -153,7 +153,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BM3WFSU38413WB.webp"
     },
     {
@@ -166,7 +166,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-B5DBT68547W.webp"
     }
   ]
