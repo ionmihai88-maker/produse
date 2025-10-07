@@ -177,7 +177,7 @@
       "descriere": "Clasă energetică: A  | Consum de apă: 43 litri/ciclu | Consum de energie: 44 kWh/100 cicluri | Capacitate încărcare: 7 kg",
       "stoc": true,
       "categorie": "BEKO",
-      "subcategorie": "Mașini de spălat rufe",
+      "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
       "afiseazaSubsub": {},
       "poza": "photo/card-BM3WFU37013WW.webp"
@@ -190,10 +190,23 @@
       "descriere": "Clasă energetică: C  | Eficiență condensare: B | Consum de energie: 176,8 kWh/an | Capacitate încărcare: 8 kg",
       "stoc": true,
       "categorie": "BEKO",
-      "subcategorie": "Mașini de spălat rufe",
+      "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
       "afiseazaSubsub": {},
       "poza": "photo/BM3T48249W.webp"
+    },
+    {
+      "id": 1759829156824,
+      "nume": "Kit de suprapunere pentru mașină de spălat și uscător BEKO PSK",
+      "pret": 310,
+      "pret36": 8.6,
+      "descriere": "Amplasarea cu ușurință a uscătorului deasupra mașinii de spălat rufe, chiar dacă nu au aceeași dimensiune | Greutate  2,1 Kg",
+      "stoc": false,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat rufe",
+      "subsubcategorie": "",
+      "afiseazaSubsub": true,
+      "poza": "photo/card-PSK.webp"
     }
   ]
 }
