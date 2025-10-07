@@ -241,23 +241,21 @@ function importaJSON(e){
 
 /* Funcția care trimite datele către API-ul Vercel */
 async function updateCatalogOnGitHub() {
-  const data = { categorii, subcategorii, produse };
   try {
     const res = await fetch("/api/updateCatalog", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ categorii, subcategorii, produse })
     });
 
+    const result = await res.json();
     if (res.ok) {
       alert("✅ catalog.json a fost actualizat cu succes pe GitHub!");
     } else {
-      const err = await res.json();
-      alert("❌ Eroare: " + (err.error || "actualizarea a eșuat."));
+      alert("❌ Eroare: " + (result.error || "actualizarea a eșuat."));
     }
-  } catch (err) {
-    console.error(err);
-    alert("❌ Nu s-a putut conecta la API-ul Vercel.");
+  } catch (error) {
+    alert("❌ Eroare conexiune: " + error.message);
   }
 }
 
@@ -284,3 +282,4 @@ window.onload=init;
 </script>
 </body>
 </html>
+
