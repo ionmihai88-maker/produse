@@ -2,6 +2,9 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catalog Produse complet</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -239,7 +242,7 @@ function importaJSON(e){
   catch{alert('Fișier invalid!');}};r.readAsText(file);
 }
 
-/* Funcția care trimite datele către API-ul Vercel */
+/* Actualizare pe GitHub (prin Vercel API) */
 async function updateCatalogOnGitHub() {
   try {
     const res = await fetch("/api/updateCatalog", {
@@ -247,7 +250,6 @@ async function updateCatalogOnGitHub() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ categorii, subcategorii, produse })
     });
-
     const result = await res.json();
     if (res.ok) {
       alert("✅ catalog.json a fost actualizat cu succes pe GitHub!");
@@ -259,7 +261,7 @@ async function updateCatalogOnGitHub() {
   }
 }
 
-/* Restul funcțiilor pentru categorii / subcategorii / produse — neschimbate */
+/* Restul funcțiilor pentru categorii / subcategorii / produse */
 function actualizeazaListaCategorii(){const ul=document.getElementById('listaCategorii');ul.innerHTML='';categorii.forEach(c=>{ul.innerHTML+=`<li>${c}<button onclick="stergeCategorie('${c}')"><i class='fas fa-trash'></i></button></li>`});actualizeazaSelecturi();}
 function adaugaCategorie(){const n=document.getElementById('categorieInput').value.trim();if(n&&!categorii.includes(n)){categorii.push(n);salveaza();actualizeazaListaCategorii();document.getElementById('categorieInput').value='';}}
 function stergeCategorie(c){if(confirm('Ștergi categoria și tot conținutul?')){categorii=categorii.filter(x=>x!==c);subcategorii=subcategorii.filter(s=>s.categorie!==c);produse=produse.filter(p=>p.categorie!==c);salveaza();actualizeazaTot();}}
@@ -280,6 +282,22 @@ function afiseazaToateProdusele(){filtratInStoc=false;afiseazaProduse();document
 function init(){if(categorii.length===0)categorii=['Default'];actualizeazaTot();}
 window.onload=init;
 </script>
+
+<!-- 🧠 Reîncărcare automată a catalog.json fără cache -->
+<script>
+const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
+
+fetch(jsonURL + "?v=" + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    localStorage.setItem("categorii", JSON.stringify(data.categorii || []));
+    localStorage.setItem("subcategorii", JSON.stringify(data.subcategorii || []));
+    localStorage.setItem("produse", JSON.stringify(data.produse || []));
+    if (typeof afiseazaProduse === "function") afiseazaProduse();
+    console.log("Catalog reîncărcat cu succes:", data);
+  })
+  .catch(e => console.error("Eroare la reîncărcarea catalog.json:", e));
+</script>
+
 </body>
 </html>
-
