@@ -30,7 +30,6 @@ body {
   margin: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: all .2s ease;
 }
 #toolbar button:hover { background: #3498db; }
 
@@ -145,7 +144,6 @@ body {
   font-size: 0.7rem;
 }
 
-/* Bara contact */
 .contactBar {
   position: absolute;
   bottom: 4px;
@@ -154,7 +152,7 @@ body {
   height: 45px;
   background: rgba(255, 255, 255, 0.65);
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -175,26 +173,26 @@ body {
   border: none;
   border-bottom: 1px solid #444;
   background: transparent;
-  width: 180px;
   font-size: 0.9rem;
   text-align: center;
   outline: none;
   color: #000;
   line-height: 1.2rem;
   padding-bottom: 2px;
-  transition: font-size .2s ease;
 }
-.contactBar input::placeholder {
-  color: #777;
-  font-style: italic;
-}
+
+/* Email auto-resize */
 .contactBar input#email {
   width: auto;
   min-width: 160px;
   max-width: 280px;
-  font-size: clamp(0.6rem, 1vw, 0.9rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
+  transition: font-size 0.1s ease;
+}
+
+.contactBar input::placeholder {
+  color: #777;
+  font-style: italic;
 }
 .pdfExport .contactBar input {
   border-bottom: none !important;
@@ -206,10 +204,10 @@ body {
 <body>
 
 <div id="toolbar">
-  <button onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> Înapoi la Index</button>
   <button id="toggleStock"><i class="fas fa-boxes"></i> Afișează/ascunde fără stoc</button>
   <span id="stockStatus">✅ În stoc</span>
   <button id="btnPDF"><i class="fas fa-file-pdf"></i> Salvează PDF</button>
+  <button id="goBack" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> Înapoi la index</button>
 </div>
 
 <div id="checkboxFilters">
@@ -246,6 +244,28 @@ async function verificaSiCorecteazaImagini() {
   }
 }
 
+/* 🔹 Font dinamic pentru email */
+function autoResizeEmailInput() {
+  document.querySelectorAll(".contactBar input#email").forEach(input => {
+    const maxWidth = input.clientWidth;
+    const text = input.value || input.placeholder;
+    const testSpan = document.createElement("span");
+    testSpan.style.visibility = "hidden";
+    testSpan.style.position = "fixed";
+    testSpan.style.whiteSpace = "nowrap";
+    testSpan.style.font = window.getComputedStyle(input).font;
+    testSpan.textContent = text;
+    document.body.appendChild(testSpan);
+    let fontSize = 16;
+    while (testSpan.offsetWidth > maxWidth && fontSize > 8) {
+      fontSize -= 0.5;
+      testSpan.style.fontSize = fontSize + "px";
+    }
+    input.style.fontSize = fontSize + "px";
+    testSpan.remove();
+  });
+}
+
 function sincronizeazaContact() {
   const nume = document.querySelector(".contactBar input#nume")?.value || "";
   const email = document.querySelector(".contactBar input#email")?.value || "";
@@ -259,6 +279,7 @@ function sincronizeazaContact() {
     if (e && e.value !== email) e.value = email;
     if (t && t.value !== tel) t.value = tel;
   });
+  autoResizeEmailInput(); // 🔥 Ajustează fontul live
 }
 
 function construiesteCheckboxuri() {
@@ -324,6 +345,7 @@ function afiseazaProduse() {
     preview.appendChild(page);
   });
   document.querySelectorAll(".contactBar input").forEach(inp => inp.addEventListener("input", sincronizeazaContact));
+  autoResizeEmailInput(); // 🔥 Ajustează la afișare
 }
 
 document.getElementById("toggleStock").addEventListener("click", () => {
@@ -371,7 +393,6 @@ document.getElementById("btnPDF").addEventListener("click", async () => {
 
 <script>
 const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
-
 fetch(jsonURL)
   .then(r => r.json())
   .then(data => {
@@ -382,6 +403,5 @@ fetch(jsonURL)
   })
   .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
 </script>
-
 </body>
 </html>
