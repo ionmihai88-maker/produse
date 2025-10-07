@@ -64,6 +64,58 @@
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/card-BCSA285K4SN.webp"
+    },
+    {
+      "id": 1759827306560,
+      "nume": "Combină frigorifică Beko RCSA406K40XBN",
+      "pret": 3240,
+      "pret36": 90,
+      "descriere": "Clasă energetică: E  | Volum net total: 386 litri | Consum de energie: 0,696 kWh/zi | Capacitate congelare: 5,5 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/combina-frigorifica-beko-rcsa406k40xbn-card.webp"
+    },
+    {
+      "id": 1759827378521,
+      "nume": "Congelator vertical Beko B3RFNE314W",
+      "pret": 3996,
+      "pret36": 111,
+      "descriere": "Clasă energetică: E  | Volum net total: 286 litri | Consum de energie: 0,617 kWh/zi | Capacitate congelare: 14,9 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/CF380EIWN.webp"
+    },
+    {
+      "id": 1759827473650,
+      "nume": "Frigider Beko 4 uși side by syde GNO4031GS",
+      "pret": 5540,
+      "pret36": 154,
+      "descriere": "Clasă energetică: E  | Volum net total: 421 litri | Consum de energie: 0,639 kWh/zi | Capacitate congelare: 10 kg/24h",
+      "stoc": false,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-GNO4031GS.webp"
+    },
+    {
+      "id": 1759827633966,
+      "nume": "Combină frigorifică Beko RCSA406K40DXBN",
+      "pret": 3564,
+      "pret36": 99,
+      "descriere": "Clasă energetică: E | Volum net total: 386 litri | Consum de energie: 0,696 kWh/zi | Capacitate congelare: 5,5 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/RCSA406K40DXBN-small.webp"
     }
   ]
 }
