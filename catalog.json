@@ -1,7 +1,8 @@
 {
   "categorii": [
     "BEKO",
-    "AER CONDITIONAT"
+    "AER CONDITIONAT",
+    "CENTRALE TERMICE"
   ],
   "subcategorii": [
     {
@@ -35,6 +36,18 @@
     {
       "nume": "COMFEE",
       "categorie": "AER CONDITIONAT"
+    },
+    {
+      "nume": "ARISTON 24 kW",
+      "categorie": "CENTRALE TERMICE"
+    },
+    {
+      "nume": "ARISTON 30 kW",
+      "categorie": "CENTRALE TERMICE"
+    },
+    {
+      "nume": "ARISTON 35 kW",
+      "categorie": "CENTRALE TERMICE"
     }
   ],
   "produse": [
@@ -505,6 +518,97 @@
       "subsubcategorie": "",
       "afiseazaSubsub": {},
       "poza": "photo/New_Beko_logo.svg.png"
+    },
+    {
+      "id": 1759842192653,
+      "nume": "Centrală termică Ariston HS Premium 24kW",
+      "pret": 5976,
+      "pret36": 166,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 24 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": true,
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842271306,
+      "nume": "Centrală termică Ariston Genus One + 24 kW",
+      "pret": 3636,
+      "pret36": 176,
+      "descriere": "",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "ARISTON 24 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842353443,
+      "nume": "Centrală termică Ariston Matis Condens 24kW",
+      "pret": 6336,
+      "pret36": 176,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 24 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842439027,
+      "nume": "Centrală termică Ariston HS Premium 30kW",
+      "pret": 6552,
+      "pret36": 182,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 30 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842512686,
+      "nume": "Centrală termică Ariston Genus One + 30kW",
+      "pret": 7812,
+      "pret36": 217,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 30 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842562311,
+      "nume": "Centrală termică Ariston Matis Condens 30kW",
+      "pret": 6948,
+      "pret36": 193,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 30 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
+    },
+    {
+      "id": 1759842602503,
+      "nume": "Centrală termică Ariston Genus One + 35kW",
+      "pret": 8024,
+      "pret36": 223,
+      "descriere": "Eficiență energetică apă caldă & încălzire: Clasa A",
+      "stoc": true,
+      "categorie": "CENTRALE TERMICE",
+      "subcategorie": "ARISTON 35 kW",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/centrale-termice-banner.webp"
     }
   ]
 }
