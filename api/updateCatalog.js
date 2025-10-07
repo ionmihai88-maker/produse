@@ -1,45 +1,50 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Doar metoda POST este permisă." });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
   const { categorii, subcategorii, produse } = req.body;
 
+  const token = process.env.GITHUB_TOKEN; // 🔒 se ia din Environment Variables din Vercel
   const username = "ionmihai88-maker";
   const repo = "produse";
-  const token = process.env.GITHUB_TOKEN; // 🔒 protejat în Vercel
+  const path = "catalog.json";
 
-  const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/catalog.json`;
+  const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
 
   try {
-    // Obține SHA-ul fișierului actual
-    const shaRes = await fetch(apiUrl, {
-      headers: { Authorization: `token ${token}` },
+    // 1️⃣ Obține SHA-ul fișierului existent
+    const currentFile = await fetch(apiUrl, {
+      headers: { Authorization: `token ${token}` }
     });
-    const fileData = await shaRes.json();
+    const currentData = await currentFile.json();
+    const sha = currentData.sha;
 
-    // Actualizează fișierul
+    // 2️⃣ Creează conținut nou codificat în base64
+    const newContent = btoa(unescape(encodeURIComponent(JSON.stringify({ categorii, subcategorii, produse }, null, 2))));
+
+    // 3️⃣ Trimite commit-ul nou
     const updateRes = await fetch(apiUrl, {
       method: "PUT",
       headers: {
         Authorization: `token ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "Actualizare automată catalog.json din aplicația Vercel",
-        content: Buffer.from(JSON.stringify({ categorii, subcategorii, produse }, null, 2)).toString("base64"),
-        sha: fileData.sha,
-      }),
+        message: "Actualizare automată catalog.json (Vercel API)",
+        content: newContent,
+        sha
+      })
     });
 
     if (updateRes.ok) {
-      return res.status(200).json({ success: true });
+      res.status(200).json({ message: "✅ Fișierul a fost actualizat cu succes pe GitHub!" });
     } else {
-      const err = await updateRes.text();
-      return res.status(500).json({ error: err });
+      const errText = await updateRes.text();
+      res.status(400).json({ message: "❌ Eroare la update", errText });
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Eroare la actualizarea catalog.json" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Eroare internă", err: err.message });
   }
 }
