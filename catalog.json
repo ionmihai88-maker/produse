@@ -75,7 +75,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/combina-frigorifica-beko-rcsa406k40xbn-card.webp"
     },
     {
@@ -88,7 +88,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/CF380EIWN.webp"
     },
     {
@@ -101,7 +101,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-GNO4031GS.webp"
     },
     {
@@ -114,7 +114,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate frigorifice",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/RCSA406K40DXBN-small.webp"
     }
   ]
