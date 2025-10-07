@@ -129,6 +129,45 @@
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/CF380EIWN.webp"
+    },
+    {
+      "id": 1759828344498,
+      "nume": "Mașină de spălat rufe Beko BM3WFSU38413WB",
+      "pret": 2772,
+      "pret36": 77,
+      "descriere": "Clasă energetică: A  | Consum de apă: 47 litri/ciclu | Consum de energie: 47 kWh/100 cicluri | Capacitate încărcare: 8 kg",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat rufe",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-BM3WFSU49415WB.webp"
+    },
+    {
+      "id": 1759828457184,
+      "nume": "Mașină de spălat rufe Beko BM3WFSU49415WB",
+      "pret": 2880,
+      "pret36": 80,
+      "descriere": "Clasă energetică: A  | Consum de apă: 49 litri/ciclu | Consum de energie: 49 kWh/100 cicluri | Capacitate încărcare: 9 kg",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat rufe",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BM3WFSU38413WB.webp"
+    },
+    {
+      "id": 1759828555722,
+      "nume": "Mașină de spălat rufe cu uscător incorporabilă B5DBT68547W",
+      "pret": 3924,
+      "pret36": 109,
+      "descriere": "Clasă energetică: D | Capacitate încărcare spălare: 8 kg | Capacitate încărcare uscare: 5kg | Secvență automată spălare-uscare: maximum 5 kg",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat rufe",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-B5DBT68547W.webp"
     }
   ]
 }
