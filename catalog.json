@@ -370,7 +370,7 @@
       "pret36": 137,
       "descriere": "răcire până la A++ | încălzire până la A+++",
       "stoc": true,
-      "categorie": "AER CONDITIONAT",
+      "categorie": "BEKO",
       "subcategorie": "ARISTON",
       "subsubcategorie": "Nevis Plus",
       "afiseazaSubsub": {},
@@ -490,7 +490,7 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "BEKO",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/New_Beko_logo.svg.png"
     },
     {
