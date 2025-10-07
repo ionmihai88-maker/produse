@@ -1,4 +1,3 @@
-// api/updateCatalog.js
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Doar metoda POST este permisă." });
@@ -8,18 +7,18 @@ export default async function handler(req, res) {
 
   const username = "ionmihai88-maker";
   const repo = "produse";
-  const token = process.env.GITHUB_TOKEN; // 🔒 citit automat din Vercel
+  const token = process.env.GITHUB_TOKEN; // 🔒 protejat în Vercel
 
   const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/catalog.json`;
 
   try {
-    // 1️⃣ Obține SHA-ul curent al fișierului
-    const resSha = await fetch(apiUrl, {
+    // Obține SHA-ul fișierului actual
+    const shaRes = await fetch(apiUrl, {
       headers: { Authorization: `token ${token}` },
     });
-    const fileData = await resSha.json();
+    const fileData = await shaRes.json();
 
-    // 2️⃣ Trimite commit nou către GitHub
+    // Actualizează fișierul
     const updateRes = await fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -27,7 +26,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: "Actualizare automată catalog.json din Vercel",
+        message: "Actualizare automată catalog.json din aplicația Vercel",
         content: Buffer.from(JSON.stringify({ categorii, subcategorii, produse }, null, 2)).toString("base64"),
         sha: fileData.sha,
       }),
