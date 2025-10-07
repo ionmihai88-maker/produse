@@ -23,6 +23,18 @@
     {
       "nume": "Mașini de spălat vase",
       "categorie": "BEKO"
+    },
+    {
+      "nume": "GRUNDING",
+      "categorie": "AER CONDITIONAT"
+    },
+    {
+      "nume": "BEKO",
+      "categorie": "AER CONDITIONAT"
+    },
+    {
+      "nume": "COMFEE",
+      "categorie": "AER CONDITIONAT"
     }
   ],
   "produse": [
@@ -179,7 +191,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-BM3WFU37013WW.webp"
     },
     {
@@ -192,7 +204,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BM3T48249W.webp"
     },
     {
@@ -205,7 +217,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat rufe",
       "subsubcategorie": "",
-      "afiseazaSubsub": true,
+      "afiseazaSubsub": false,
       "poza": "photo/card-PSK.webp"
     },
     {
@@ -218,7 +230,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat vase",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-BDIN36530.webp"
     },
     {
@@ -231,7 +243,7 @@
       "categorie": "BEKO",
       "subcategorie": "Mașini de spălat vase",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BDFN36560XWP.webp"
     },
     {
@@ -244,7 +256,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate pentru gătit",
       "subsubcategorie": "",
-      "afiseazaSubsub": true,
+      "afiseazaSubsub": false,
       "poza": "photo/card-HNT63322XH.webp"
     },
     {
@@ -257,7 +269,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate pentru gătit",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BHCA69642BH.webp"
     },
     {
@@ -270,7 +282,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate pentru gătit",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BBIM18302BCSE.webp"
     },
     {
@@ -283,7 +295,7 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate pentru gătit",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/BBSE12130XD.webp"
     },
     {
@@ -296,8 +308,34 @@
       "categorie": "BEKO",
       "subcategorie": "Aparate pentru gătit",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/card-HII64401SMTX.webp"
+    },
+    {
+      "id": 1759830987384,
+      "nume": "Aparat aer conditionat Ariston Prios 9000 BTU",
+      "pret": 3852,
+      "pret36": 107,
+      "descriere": "răcire până la A++ | încălzire până la A++",
+      "stoc": true,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "ARISTON",
+      "subsubcategorie": "Prios",
+      "afiseazaSubsub": {},
+      "poza": "photo/Ariston-Logo-2003.png"
+    },
+    {
+      "id": 1759831062910,
+      "nume": "Aparat aer conditionat Ariston Prios 12000 BTU",
+      "pret": 110,
+      "pret36": 3960,
+      "descriere": "răcire până la A++| încălzire până la A++",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "ARISTON",
+      "subsubcategorie": "Prios",
+      "afiseazaSubsub": true,
+      "poza": "photo/Ariston-Logo-2003.png"
     }
   ]
 }
