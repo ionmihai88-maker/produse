@@ -407,17 +407,8 @@ fetch(jsonURL)
   })
   .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
 </script>
-  <script>
-// 🔹 Configurare GitHub
-const username = "ionmihai88-maker"; // ex: "andrei-popescu"
-const repo = "produse";           // ex: "catalog-produse"
-const token = "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";
-
-
-// 🔹 Funcția care salvează catalogul în GitHub
+ <script>
 async function updateCatalogOnGitHub() {
-  const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/catalog.json`;
-
   const data = {
     categorii,
     subcategorii,
@@ -425,44 +416,24 @@ async function updateCatalogOnGitHub() {
   };
 
   try {
-    // Pasul 1: Obține SHA-ul fișierului actual
-    const res = await fetch(apiUrl, {
-      headers: { Authorization: `token ${token}` }
-    });
-    const fileData = await res.json();
-
-    const sha = fileData.sha;
-
-    // Pasul 2: Creează un commit nou cu fișierul actualizat
-    const updateRes = await fetch(apiUrl, {
-      method: "PUT",
-      headers: {
-        Authorization: `token ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: "Actualizare automată catalog.json din index.html",
-        content: btoa(JSON.stringify(data, null, 2)),  // Codificare corectă în base64
-        sha
-      })
+    const res = await fetch("https://<numele-tău-proiect>.vercel.app/api/updateCatalog", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
 
-    if (updateRes.ok) {
-      alert("✅ catalog.json a fost actualizat cu succes pe GitHub!");
-    } else {
-      const err = await updateRes.text();
-      console.error(err);
-      alert("❌ Eroare la actualizarea fișierului în GitHub!");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("❌ A apărut o eroare la conexiunea cu GitHub.");
+    const result = await res.json();
+    alert(result.message);
+  } catch (err) {
+    console.error(err);
+    alert("❌ Eroare la trimiterea datelor către server.");
   }
 }
 </script>
 
 </body>
 </html>
+
 
 
 
