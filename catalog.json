@@ -168,6 +168,32 @@
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/card-B5DBT68547W.webp"
+    },
+    {
+      "id": 1759828756940,
+      "nume": "Mașină de spălat rufe BM3WFU37013WW",
+      "pret": 2664,
+      "pret36": 74,
+      "descriere": "Clasă energetică: A  | Consum de apă: 43 litri/ciclu | Consum de energie: 44 kWh/100 cicluri | Capacitate încărcare: 7 kg",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-BM3WFU37013WW.webp"
+    },
+    {
+      "id": 1759828841468,
+      "nume": "Uscător de rufe Beko BM3T48249W",
+      "pret": 3852,
+      "pret36": 107,
+      "descriere": "Clasă energetică: C  | Eficiență condensare: B | Consum de energie: 176,8 kWh/an | Capacitate încărcare: 8 kg",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BM3T48249W.webp"
     }
   ]
 }
