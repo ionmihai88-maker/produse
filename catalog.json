@@ -321,7 +321,7 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "ARISTON",
       "subsubcategorie": "Prios",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": true,
       "poza": "photo/Ariston-Logo-2003.png"
     },
     {
@@ -399,7 +399,7 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "GRUNDING",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/grunding.png"
     },
     {
@@ -412,7 +412,7 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "GRUNDING",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/grunding.png"
     },
     {
@@ -425,7 +425,7 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "GRUNDING",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/grunding.png"
     },
     {
@@ -438,8 +438,73 @@
       "categorie": "AER CONDITIONAT",
       "subcategorie": "GRUNDING",
       "subsubcategorie": "",
-      "afiseazaSubsub": {},
+      "afiseazaSubsub": false,
       "poza": "photo/grunding.png"
+    },
+    {
+      "id": 1759840639068,
+      "nume": "Aparat aer conditionat Ariston Alys 12000 BTU",
+      "pret": 110,
+      "pret36": 3960,
+      "descriere": "răcire până la A++ | încălzire până la A++",
+      "stoc": false,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "ARISTON",
+      "subsubcategorie": "Alys",
+      "afiseazaSubsub": false,
+      "poza": "photo/Ariston-Logo-2003.png"
+    },
+    {
+      "id": 1759840879198,
+      "nume": "Aparat aer conditionat Comfee 9000 BTU",
+      "pret": 3096,
+      "pret36": 86,
+      "descriere": "răcire până la A++ | încălzire până la A+",
+      "stoc": true,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "COMFEE",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/comfee.png"
+    },
+    {
+      "id": 1759840927035,
+      "nume": "Aparat aer conditionat Comfee 12000 BTU",
+      "pret": 3450,
+      "pret36": 96,
+      "descriere": "răcire până la A++ | încălzire până la A+",
+      "stoc": false,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "COMFEE",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/comfee.png"
+    },
+    {
+      "id": 1759841043633,
+      "nume": "Aparat aer conditionat Beko 9000 BTU",
+      "pret": 117,
+      "pret36": 4210,
+      "descriere": "răcire până la A++ | încălzire până la A+",
+      "stoc": true,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "BEKO",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/New_Beko_logo.svg.png"
+    },
+    {
+      "id": 1759841081862,
+      "nume": "Aparat aer conditionat Beko 12000 BTU",
+      "pret": 4570,
+      "pret36": 127,
+      "descriere": "răcire până la A++ | încălzire până la A+",
+      "stoc": true,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "BEKO",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/New_Beko_logo.svg.png"
     }
   ]
 }
