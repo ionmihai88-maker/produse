@@ -207,6 +207,32 @@
       "subsubcategorie": "",
       "afiseazaSubsub": true,
       "poza": "photo/card-PSK.webp"
+    },
+    {
+      "id": 1759829442355,
+      "nume": "Mașină de spălat vase încorporabilă Beko BDIN36530",
+      "pret": 3024,
+      "pret36": 84,
+      "descriere": "Clasă energetică: D  | Consum de apa al programului Eco: 9,9 litri/ciclu | Consum de energie al programului Eco: 86 kWh/100 cicluri",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat vase",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-BDIN36530.webp"
+    },
+    {
+      "id": 1759829523453,
+      "nume": "Mașină de spălat vase BDFN36560XWP",
+      "pret": 4644,
+      "pret36": 129,
+      "descriere": "Clasă energetică: A  | Consum de apă: 8,9 litri/ciclu | Consum de energie: 65 kWh/100 cicluri",
+      "stoc": false,
+      "categorie": "BEKO",
+      "subcategorie": "Mașini de spălat vase",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BDFN36560XWP.webp"
     }
   ]
 }
