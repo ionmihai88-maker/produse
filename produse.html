@@ -173,23 +173,15 @@ body {
   border: none;
   border-bottom: 1px solid #444;
   background: transparent;
+  width: 180px;
   font-size: 0.9rem;
   text-align: center;
   outline: none;
   color: #000;
   line-height: 1.2rem;
   padding-bottom: 2px;
+  transition: font-size 0.2s ease;
 }
-
-/* Email auto-resize */
-.contactBar input#email {
-  width: auto;
-  min-width: 160px;
-  max-width: 280px;
-  text-align: center;
-  transition: font-size 0.1s ease;
-}
-
 .contactBar input::placeholder {
   color: #777;
   font-style: italic;
@@ -204,10 +196,10 @@ body {
 <body>
 
 <div id="toolbar">
+  <button id="backToIndex"><i class="fas fa-arrow-left"></i> Înapoi la index</button>
   <button id="toggleStock"><i class="fas fa-boxes"></i> Afișează/ascunde fără stoc</button>
   <span id="stockStatus">✅ În stoc</span>
   <button id="btnPDF"><i class="fas fa-file-pdf"></i> Salvează PDF</button>
-  <button id="goBack" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> Înapoi la index</button>
 </div>
 
 <div id="checkboxFilters">
@@ -231,7 +223,7 @@ function preincarcaImagine(src) {
   return new Promise(resolve => {
     const img = new Image();
     img.onload = () => resolve(src);
-    img.onerror = () => resolve("");
+    img.onerror = () => resolve(""); 
     img.crossOrigin = "anonymous";
     img.src = src;
   });
@@ -244,33 +236,12 @@ async function verificaSiCorecteazaImagini() {
   }
 }
 
-/* 🔹 Font dinamic pentru email */
-function autoResizeEmailInput() {
-  document.querySelectorAll(".contactBar input#email").forEach(input => {
-    const maxWidth = input.clientWidth;
-    const text = input.value || input.placeholder;
-    const testSpan = document.createElement("span");
-    testSpan.style.visibility = "hidden";
-    testSpan.style.position = "fixed";
-    testSpan.style.whiteSpace = "nowrap";
-    testSpan.style.font = window.getComputedStyle(input).font;
-    testSpan.textContent = text;
-    document.body.appendChild(testSpan);
-    let fontSize = 16;
-    while (testSpan.offsetWidth > maxWidth && fontSize > 8) {
-      fontSize -= 0.5;
-      testSpan.style.fontSize = fontSize + "px";
-    }
-    input.style.fontSize = fontSize + "px";
-    testSpan.remove();
-  });
-}
-
 function sincronizeazaContact() {
   const nume = document.querySelector(".contactBar input#nume")?.value || "";
   const email = document.querySelector(".contactBar input#email")?.value || "";
   const tel = document.querySelector(".contactBar input#telefon")?.value || "";
   localStorage.setItem("contact", JSON.stringify({ nume, email, tel }));
+
   document.querySelectorAll(".contactBar").forEach(bar => {
     const n = bar.querySelector("#nume");
     const e = bar.querySelector("#email");
@@ -278,8 +249,15 @@ function sincronizeazaContact() {
     if (n && n.value !== nume) n.value = nume;
     if (e && e.value !== email) e.value = email;
     if (t && t.value !== tel) t.value = tel;
+
+    // auto-resize font pentru email
+    if (e) {
+      const len = e.value.length;
+      if (len > 30) e.style.fontSize = "0.65rem";
+      else if (len > 22) e.style.fontSize = "0.75rem";
+      else e.style.fontSize = "0.9rem";
+    }
   });
-  autoResizeEmailInput(); // 🔥 Ajustează fontul live
 }
 
 function construiesteCheckboxuri() {
@@ -345,7 +323,7 @@ function afiseazaProduse() {
     preview.appendChild(page);
   });
   document.querySelectorAll(".contactBar input").forEach(inp => inp.addEventListener("input", sincronizeazaContact));
-  autoResizeEmailInput(); // 🔥 Ajustează la afișare
+  sincronizeazaContact();
 }
 
 document.getElementById("toggleStock").addEventListener("click", () => {
@@ -384,6 +362,10 @@ document.getElementById("btnPDF").addEventListener("click", async () => {
   }
 });
 
+document.getElementById("backToIndex").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
 (async () => {
   await verificaSiCorecteazaImagini();
   construiesteCheckboxuri();
@@ -393,7 +375,7 @@ document.getElementById("btnPDF").addEventListener("click", async () => {
 
 <script>
 const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
-fetch(jsonURL + '?v=' + Date.now())
+fetch(jsonURL)
   .then(r => r.json())
   .then(data => {
     localStorage.setItem("categorii", JSON.stringify(data.categorii || []));
@@ -403,6 +385,6 @@ fetch(jsonURL + '?v=' + Date.now())
   })
   .catch(e => console.error("Eroare la încărcarea catalog.json:", e));
 </script>
+
 </body>
 </html>
-
