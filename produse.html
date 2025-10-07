@@ -393,7 +393,7 @@ document.getElementById("btnPDF").addEventListener("click", async () => {
 
 <script>
 const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
-fetch(jsonURL)
+fetch(jsonURL + '?v=' + Date.now())
   .then(r => r.json())
   .then(data => {
     localStorage.setItem("categorii", JSON.stringify(data.categorii || []));
@@ -405,3 +405,4 @@ fetch(jsonURL)
 </script>
 </body>
 </html>
+
