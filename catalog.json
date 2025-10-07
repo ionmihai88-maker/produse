@@ -233,6 +233,71 @@
       "subsubcategorie": "",
       "afiseazaSubsub": {},
       "poza": "photo/BDFN36560XWP.webp"
+    },
+    {
+      "id": 1759829830479,
+      "nume": "Hotă incorporabilă telescopică Beko HNT63322XH",
+      "pret": 619,
+      "pret36": 17.2,
+      "descriere": "Clasă energetică: E",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": true,
+      "poza": "photo/card-HNT63322XH.webp"
+    },
+    {
+      "id": 1759829907361,
+      "nume": "Hotă incorporabilă decorativă Beko BHCA69642BH",
+      "pret": 1764,
+      "pret36": 49,
+      "descriere": "Clasă energetică: E",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BHCA69642BH.webp"
+    },
+    {
+      "id": 1759829984668,
+      "nume": "Cuptor electric multifuncțional BBIM18302BCSE",
+      "pret": 2232,
+      "pret36": 62,
+      "descriere": "Clasă energetică: A+",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BBIM18302BCSE.webp"
+    },
+    {
+      "id": 1759830052192,
+      "nume": "Set plită + cuptor incorporabil Beko BBSE12130XD",
+      "pret": 2844,
+      "pret36": 77,
+      "descriere": "Clasă energetică: A",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/BBSE12130XD.webp"
+    },
+    {
+      "id": 1759830182518,
+      "nume": "Plită incorporabilă Beko HII64401SMTX",
+      "pret": 1980,
+      "pret36": 55,
+      "descriere": "",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/card-HII64401SMTX.webp"
     }
   ]
 }
