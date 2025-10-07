@@ -1,7 +1,69 @@
 {
   "categorii": [
-    "Default"
+    "BEKO",
+    "AER CONDITIONAT"
   ],
-  "subcategorii": [],
-  "produse": []
+  "subcategorii": [
+    {
+      "nume": "Aparate frigorifice",
+      "categorie": "BEKO"
+    },
+    {
+      "nume": "ARISTON",
+      "categorie": "AER CONDITIONAT"
+    },
+    {
+      "nume": "Mașini de spălat rufe",
+      "categorie": "BEKO"
+    },
+    {
+      "nume": "Aparate pentru gătit",
+      "categorie": "BEKO"
+    },
+    {
+      "nume": "Mașini de spălat vase",
+      "categorie": "BEKO"
+    }
+  ],
+  "produse": [
+    {
+      "id": 1759748564813,
+      "nume": "Combină frigorifică Beko B3RCNE564HDXB1",
+      "pret": 5400,
+      "pret36": 150,
+      "descriere": "Clasă energetică: E  | Volum net total: 490 litri | Consum de energie: 0,8 kWh/zi | Capacitate congelare: 7,8 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-B3RCNE564HDXB1.webp"
+    },
+    {
+      "id": 1759749558523,
+      "nume": "Combină frigorifică Beko B5RCNA365HG",
+      "pret": 4104,
+      "pret36": 114,
+      "descriere": "Clasă energetică: D  | Volum net total: 316 litri \u0003Consum de energie: 0,543 kWh/zi | Capacitate congelare: 6 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-B5RCNA365HG.webp"
+    },
+    {
+      "id": 1759758761244,
+      "nume": "Combină frigorifică incorporabilă Beko BCSA285K4SN",
+      "pret": 2736,
+      "pret36": 76,
+      "descriere": "Clasă energetică: E  | Volum net total: 271 litri | Consum de energie: 0,616 kWh/zi | Capacitate congelare: 3,6 kg/24h",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/card-BCSA285K4SN.webp"
+    }
+  ]
 }
