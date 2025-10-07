@@ -116,6 +116,19 @@
       "subsubcategorie": "",
       "afiseazaSubsub": false,
       "poza": "photo/RCSA406K40DXBN-small.webp"
+    },
+    {
+      "id": 1759828207714,
+      "nume": "Congelator orizontal  Beko CF380EIWN",
+      "pret": 3024,
+      "pret36": 84,
+      "descriere": "Clasă energetică: E  | Volum net total: 317 litri | Consum de energie: 0,843 kWh/zi | Capacitate congelare: 18 kg/24h",
+      "stoc": false,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate frigorifice",
+      "subsubcategorie": "",
+      "afiseazaSubsub": false,
+      "poza": "photo/CF380EIWN.webp"
     }
   ]
 }
