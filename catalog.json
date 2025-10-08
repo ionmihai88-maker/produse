@@ -324,6 +324,21 @@
       "afiseazaSubsub": false,
       "poza": "photo/card-HII64401SMTX.webp"
     },
+        {
+      "id": 1759909209171,
+      "nume": "Aragaz electric Beko",
+      "pret": 3628,
+      "pret36": 100.77,
+      "descriere": "",
+      "stoc": true,
+      "categorie": "BEKO",
+      "subcategorie": "Aparate pentru gătit",
+      "subsubcategorie": "",
+      "afiseazaSubsub": true,
+      "poza": "photo/New_Beko_logo.svg.png"
+    }
+  ]
+},
     {
       "id": 1759830987384,
       "nume": "Aparat aer conditionat Ariston Prios 9000 BTU",
@@ -609,19 +624,4 @@
       "subsubcategorie": "",
       "afiseazaSubsub": true,
       "poza": "photo/centrale-termice-banner.webp"
-    },
-    {
-      "id": 1759909209171,
-      "nume": "Aragaz electric Beko",
-      "pret": 3628,
-      "pret36": 100.77,
-      "descriere": "",
-      "stoc": true,
-      "categorie": "BEKO",
-      "subcategorie": "Aparate pentru gătit",
-      "subsubcategorie": "",
-      "afiseazaSubsub": true,
-      "poza": "photo/New_Beko_logo.svg.png"
     }
-  ]
-}
