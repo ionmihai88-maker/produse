@@ -26,7 +26,7 @@
       "categorie": "BEKO"
     },
     {
-      "nume": "GRUNDING",
+      "nume": "GRUNDIG",
       "categorie": "AER CONDITIONAT"
     },
     {
@@ -572,6 +572,19 @@
       "poza": "photo/comfee.png"
     },
     {
+      "id": 1759993135540,
+      "nume": "Aparat aer conditionat Beko 12000 BTU",
+      "pret": 4320,
+      "pret36": 120,
+      "descriere": "Descriere: răcire până la A++ | încălzire până la A+",
+      "stoc": true,
+      "categorie": "AER CONDITIONAT",
+      "subcategorie": "BEKO",
+      "subsubcategorie": "",
+      "afiseazaSubsub": {},
+      "poza": "photo/New_Beko_logo.svg.png"
+    },
+    {
       "id": 1759842192653,
       "nume": "Pachet Centrală termică Ariston HS Premium 24kW",
       "pret": 5976,
@@ -661,19 +674,6 @@
       "subsubcategorie": "",
       "afiseazaSubsub": true,
       "poza": "photo/centrale-termice-banner.webp"
-    },
-    {
-      "id": 1759993135540,
-      "nume": "Aparat aer conditionat Beko 12000 BTU",
-      "pret": 4320,
-      "pret36": 120,
-      "descriere": "Descriere: răcire până la A++ | încălzire până la A+",
-      "stoc": true,
-      "categorie": "AER CONDITIONAT",
-      "subcategorie": "BEKO",
-      "subsubcategorie": "",
-      "afiseazaSubsub": {},
-      "poza": "photo/New_Beko_logo.svg.png"
     }
   ]
 }
