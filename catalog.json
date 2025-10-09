@@ -1,7 +1,8 @@
 {
   "categorii": [
     "BEKO",
-    "AER CONDITIONAT"
+    "AER CONDITIONAT",
+    "CENTRALE TERMICE"
   ],
   "subcategorii": [
     {
@@ -35,6 +36,18 @@
     {
       "nume": "COMFEE",
       "categorie": "AER CONDITIONAT"
+    },
+    {
+      "nume": "ARISTON 24 kW",
+      "categorie": "CENTRALE TERMICE"
+    },
+    {
+      "nume": "ARISTON 30 kW",
+      "categorie": "CENTRALE TERMICE"
+    },
+    {
+      "nume": "ARISTON 35 kW",
+      "categorie": "CENTRALE TERMICE"
     }
   ],
   "produse": [
