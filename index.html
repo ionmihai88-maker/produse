@@ -63,7 +63,6 @@ li button{
 li button:first-of-type{background:#f39c12;color:#fff}
 li button:last-of-type{background:#e74c3c;color:#fff}
 li button:hover{opacity:.85}
-
 .produs{
   background:#fff;
   padding:14px;
@@ -115,8 +114,6 @@ form button{
   transition:all .2s;
 }
 form button:hover{background:#2ecc71}
-
-/* Search bar styling */
 #searchContainer {
   text-align:center;
   margin:20px auto;
@@ -144,9 +141,10 @@ form button:hover{background:#2ecc71}
   <label style="background:#27ae60;color:#fff;">📂 Importă JSON
     <input type="file" accept=".json" style="display:none" onchange="importaJSON(event)">
   </label>
+  <!-- ✅ buton nou -->
+  <button onclick="seteazaToateFaraStoc()">🚫 Setează toate fără stoc</button>
 </div>
 
-<!-- 🔍 Search bar -->
 <div id="searchContainer">
   <input type="text" id="searchInput" placeholder="Caută produs după nume...">
 </div>
@@ -182,10 +180,8 @@ form button:hover{background:#2ecc71}
   <select id="selectSubcategorieProdus"></select>
   <input type="text" id="subsubcategorieInput" placeholder="Sub-subcategorie (opțional)">
   <label><input type="checkbox" id="afiseazaSubsub"> Afișează sub-subcategoria</label>
-
   <input type="file" id="pozaProdus" accept="image/*">
   <img id="previewPoza" style="display:none;max-width:120px;margin-top:6px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.2);">
-
   <button type="submit"><i class="fas fa-plus"></i> Adaugă produs</button>
 </form>
 </section>
@@ -206,7 +202,6 @@ function salveaza(){
   localStorage.setItem('produse',JSON.stringify(produse));
 }
 
-/* Previzualizare imagine */
 document.getElementById("pozaProdus").addEventListener("change", function() {
   const file = this.files[0];
   if (!file) return;
@@ -220,13 +215,11 @@ document.getElementById("pozaProdus").addEventListener("change", function() {
   reader.readAsDataURL(file);
 });
 
-/* Căutare produse după nume */
 document.getElementById("searchInput").addEventListener("input", function() {
   textCautare = this.value.toLowerCase().trim();
   afiseazaProduse();
 });
 
-/* Export / Import JSON */
 function exportaJSON(){
  const data={categorii,subcategorii,produse};
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -242,7 +235,6 @@ function importaJSON(e){
   catch{alert('Fișier invalid!');}};r.readAsText(file);
 }
 
-/* Actualizare pe GitHub (prin Vercel API) */
 async function updateCatalogOnGitHub() {
   try {
     const res = await fetch("/api/updateCatalog", {
@@ -261,8 +253,19 @@ async function updateCatalogOnGitHub() {
   }
 }
 
-/* Restul funcțiilor pentru categorii / subcategorii / produse */
-function actualizeazaListaCategorii(){const ul=document.getElementById('listaCategorii');ul.innerHTML='';categorii.forEach(c=>{ul.innerHTML+=`<li>${c}<button onclick="stergeCategorie('${c}')"><i class='fas fa-trash'></i></button></li>`});actualizeazaSelecturi();}
+function actualizeazaListaCategorii(){
+  const ul=document.getElementById('listaCategorii');
+  ul.innerHTML='';
+  categorii.forEach(c=>{
+    ul.innerHTML += `
+      <li>
+        <strong style="cursor:pointer;color:#2980b9;" onclick="afiseazaProduseDupaCategorie('${c}')">${c}</strong>
+        <button onclick="stergeCategorie('${c}')"><i class='fas fa-trash'></i></button>
+      </li>`;
+  });
+  actualizeazaSelecturi();
+}
+
 function adaugaCategorie(){const n=document.getElementById('categorieInput').value.trim();if(n&&!categorii.includes(n)){categorii.push(n);salveaza();actualizeazaListaCategorii();document.getElementById('categorieInput').value='';}}
 function stergeCategorie(c){if(confirm('Ștergi categoria și tot conținutul?')){categorii=categorii.filter(x=>x!==c);subcategorii=subcategorii.filter(s=>s.categorie!==c);produse=produse.filter(p=>p.categorie!==c);salveaza();actualizeazaTot();}}
 function actualizeazaListaSubcategorii(){const cat=document.getElementById('selectCategorieSub').value;const ul=document.getElementById('listaSubcategorii');ul.innerHTML='';subcategorii.filter(s=>s.categorie===cat).forEach(s=>{ul.innerHTML+=`<li>${s.nume}<button onclick="stergeSubcategorie('${s.nume}','${s.categorie}')"><i class='fas fa-trash'></i></button></li>`});}
@@ -274,30 +277,38 @@ function toggleSubsub(id,val){const p=produse.find(x=>x.id===id);if(p){p.afiseaz
 function editeazaProdus(id){const p=produse.find(x=>x.id===id);const div=document.getElementById('produs-'+id);div.innerHTML=`<input id='nume-${id}' value='${p.nume}'><br><input id='pret-${id}' type='number' step='0.01' value='${p.pret}'><br><input id='pret36-${id}' type='number' step='0.01' value='${p.pret36 || ''}'><br><textarea id='desc-${id}' rows='3'>${p.descriere || ''}</textarea><br><input id='subsub-${id}' value='${p.subsubcategorie || ''}' placeholder='Sub-subcategorie'><br><label><input type='checkbox' id='afis-${id}' ${p.afiseazaSubsub?'checked':''}> Afișează sub-subcategoria</label><br><select id='stoc-${id}'><option value='true' ${p.stoc?'selected':''}>În stoc</option><option value='false' ${!p.stoc?'selected':''}>Nu în stoc</option></select><br><button class='btn-actiune btn-save' onclick='salveazaProdus(${p.id})'><i class="fas fa-save"></i> Salvează</button><button class='btn-actiune btn-cancel' onclick='afiseazaProduse()'><i class="fas fa-times"></i> Anulează</button>`;}
 function salveazaProdus(id){const p=produse.find(x=>x.id===id);p.nume=document.getElementById('nume-'+id).value.trim();p.pret=parseFloat(document.getElementById('pret-'+id).value);p.pret36=parseFloat(document.getElementById('pret36-'+id).value);p.descriere=document.getElementById('desc-'+id).value.trim();p.subsubcategorie=document.getElementById('subsub-'+id).value.trim();p.afiseazaSubsub=document.getElementById('afis-'+id).checked;p.stoc=document.getElementById('stoc-'+id).value==='true';salveaza();afiseazaProduse();}
 function stergeProdus(id){if(confirm('Ștergi produsul?')){produse=produse.filter(p=>p.id!==id);salveaza();afiseazaProduse();}}
-function actualizeazaSelecturi(){const catOpt=categorii.map(c=>`<option value='${c}'>${c}</option>`).join('');document.getElementById('selectCategorieProdus').innerHTML=catOpt;document.getElementById('selectCategorieSub').innerHTML=catOpt;actualizeazaListaSubcategoriiProdus();}
-function actualizeazaListaSubcategoriiProdus(){const cat=document.getElementById('selectCategorieProdus').value;const opt=subcategorii.filter(s=>s.categorie===cat).map(s=>`<option value='${s.nume}'>${s.nume}</option>`).join('');document.getElementById('selectSubcategorieProdus').innerHTML=opt;}
+function actualizeazaSelecturi(){const catSub=document.getElementById('selectCategorieSub');const catProd=document.getElementById('selectCategorieProdus');catSub.innerHTML=catProd.innerHTML='<option value="">Alege categorie</option>';categorii.forEach(c=>{catSub.innerHTML+=`<option value='${c}'>${c}</option>`;catProd.innerHTML+=`<option value='${c}'>${c}</option>`;});actualizeazaListaSubcategoriiProdus();}
+function actualizeazaListaSubcategoriiProdus(){const cat=document.getElementById('selectCategorieProdus').value;const sel=document.getElementById('selectSubcategorieProdus');sel.innerHTML='';subcategorii.filter(s=>s.categorie===cat).forEach(s=>{sel.innerHTML+=`<option value='${s.nume}'>${s.nume}</option>`;});}
 function actualizeazaTot(){actualizeazaListaCategorii();actualizeazaListaSubcategorii();afiseazaProduse();}
-function filtreazaInStoc(){filtratInStoc=true;afiseazaProduse();document.getElementById('butonFiltru').style.display='none';document.getElementById('butonToate').style.display='inline-block';}
-function afiseazaToateProdusele(){filtratInStoc=false;afiseazaProduse();document.getElementById('butonFiltru').style.display='inline-block';document.getElementById('butonToate').style.display='none';}
-function init(){if(categorii.length===0)categorii=['Default'];actualizeazaTot();}
-window.onload=init;
+function init(){actualizeazaTot();}
+function filtreazaInStoc(){filtratInStoc=true;document.getElementById('butonFiltru').style.display='none';document.getElementById('butonToate').style.display='inline-block';afiseazaProduse();}
+function afiseazaToateProdusele(){filtratInStoc=false;document.getElementById('butonFiltru').style.display='inline-block';document.getElementById('butonToate').style.display='none';afiseazaProduse();}
+
+/* ✅ 1. Afișare doar produse dintr-o categorie */
+function afiseazaProduseDupaCategorie(categorie) {
+  const cont = document.getElementById('listaProduse');
+  cont.innerHTML = '';
+  const filtrate = produse.filter(p => p.categorie === categorie);
+  if (filtrate.length === 0) {
+    cont.innerHTML = `<p style="text-align:center;">Niciun produs în categoria <strong>${categorie}</strong>.</p>`;
+    return;
+  }
+  filtrate.forEach(p => {
+    cont.innerHTML += `<div class='produs'><strong>${p.nume}</strong><br><small>${p.categorie} → ${p.subcategorie}</small><br>Preț: <b>${p.pret}</b><br>Stoc: ${p.stoc ? '✅' : '❌'}<br>${p.poza ? `<img src="${p.poza}">` : ''}</div>`;
+  });
+}
+
+/* ✅ 2. Setează toate produsele fără stoc */
+function seteazaToateFaraStoc() {
+  if (confirm("Ești sigur că vrei să setezi toate produsele ca FĂRĂ STOC?")) {
+    produse.forEach(p => p.stoc = false);
+    salveaza();
+    afiseazaProduse();
+    alert("Toate produsele au fost setate ca FĂRĂ STOC.");
+  }
+}
+
+init();
 </script>
-
-<!-- 🧠 Reîncărcare automată a catalog.json fără cache -->
-<script>
-const jsonURL = "https://raw.githubusercontent.com/ionmihai88-maker/produse/refs/heads/main/catalog.json";
-
-fetch(jsonURL + "?v=" + Date.now())
-  .then(r => r.json())
-  .then(data => {
-    localStorage.setItem("categorii", JSON.stringify(data.categorii || []));
-    localStorage.setItem("subcategorii", JSON.stringify(data.subcategorii || []));
-    localStorage.setItem("produse", JSON.stringify(data.produse || []));
-    if (typeof afiseazaProduse === "function") afiseazaProduse();
-    console.log("Catalog reîncărcat cu succes:", data);
-  })
-  .catch(e => console.error("Eroare la reîncărcarea catalog.json:", e));
-</script>
-
 </body>
 </html>
