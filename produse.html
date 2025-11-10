@@ -268,12 +268,14 @@ function construiesteCheckboxuri() {
     categorii[p.categorie].add(p.subcategorie);
   });
   container.innerHTML = "";
-  for (const [cat, subs] of Object.entries(categorii)) {
+  // sort categories alphabetically
+  const catKeys = Object.keys(categorii).sort((a,b) => String(a).localeCompare(String(b), 'ro'));
+  for (const cat of catKeys) {
+    const subs = Array.from(categorii[cat]).sort((a,b) => String(a).localeCompare(String(b), 'ro'));
     const div = document.createElement("div");
     div.className = "categorie";
     let html = `<strong>${cat}</strong><br>`;
     subs.forEach(sub => {
-      const id = `${cat}-${sub}`.replace(/\s+/g, "_");
       html += `<label><input type="checkbox" class="chkSub" data-cat="${cat}" data-sub="${sub}" checked> ${sub}</label>`;
     });
     div.innerHTML = html;
@@ -287,7 +289,23 @@ function afiseazaProduse() {
   const lista = arataFaraStoc ? produse : produse.filter(p => p.stoc);
   const bife = document.querySelectorAll(".chkSub:checked");
   const combinatii = new Set(Array.from(bife).map(b => `${b.dataset.cat}|${b.dataset.sub}`));
-  const filtrate = lista.filter(p => combinatii.size === 0 || combinatii.has(`${p.categorie}|${p.subcategorie}`));
+  let filtrate = lista.filter(p => combinatii.size === 0 || combinatii.has(`${p.categorie}|${p.subcategorie}`));
+
+  // sort results by categorie -> subcategorie -> nume (locale-aware)
+  filtrate.sort((a, b) => {
+    const ca = String(a.categorie || "");
+    const cb = String(b.categorie || "");
+    const compCat = ca.localeCompare(cb, 'ro');
+    if (compCat !== 0) return compCat;
+    const sa = String(a.subcategorie || "");
+    const sb = String(b.subcategorie || "");
+    const compSub = sa.localeCompare(sb, 'ro');
+    if (compSub !== 0) return compSub;
+    const na = String(a.nume || "");
+    const nb = String(b.nume || "");
+    return na.localeCompare(nb, 'ro');
+  });
+
   preview.innerHTML = "";
   const pagini = [];
   for (let i = 0; i < filtrate.length; i += 9) pagini.push(filtrate.slice(i, i + 9));
