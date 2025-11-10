@@ -368,6 +368,92 @@ if (pretMain) {
   });
 }
 
+/* === Ensure categories/subcategories UI is populated ===
+   Add these helper functions and init call so categories/subcategories
+   are visible even after loading from localStorage / remote JSON.
+*/
+function actualizeazaSelecturi(){
+  const selCatProd = document.getElementById('selectCategorieProdus');
+  const selCatSub  = document.getElementById('selectCategorieSub');
+  if(!selCatProd || !selCatSub) return;
+  selCatProd.innerHTML = '';
+  selCatSub.innerHTML  = '';
+  categorii.forEach(c => {
+    const opt1 = document.createElement('option'); opt1.value = c; opt1.textContent = c;
+    const opt2 = document.createElement('option'); opt2.value = c; opt2.textContent = c;
+    selCatProd.appendChild(opt1);
+    selCatSub.appendChild(opt2);
+  });
+  // after filling selects, update subcategory lists for their current selection
+  actualizeazaListaSubcategorii();
+  actualizeazaListaSubcategoriiProdus();
+}
+
+function actualizeazaListaCategorii(){
+  const ul = document.getElementById('listaCategorii');
+  if(!ul) return;
+  ul.innerHTML = '';
+  categorii.forEach(c => {
+    const li = document.createElement('li');
+    li.innerHTML = `${c} <button onclick="stergeCategorie('${c}')"><i class='fas fa-trash'></i></button>`;
+    ul.appendChild(li);
+  });
+  actualizeazaSelecturi();
+  actualizeazaFiltruCategorii();
+}
+
+function actualizeazaListaSubcategorii(){
+  const cat = document.getElementById('selectCategorieSub') ? document.getElementById('selectCategorieSub').value : (categorii[0]||'');
+  const ul = document.getElementById('listaSubcategorii');
+  if(!ul) return;
+  ul.innerHTML = '';
+  subcategorii.filter(s => s.categorie === cat).forEach(s => {
+    const li = document.createElement('li');
+    li.innerHTML = `${s.nume} <button onclick="stergeSubcategorie('${s.nume}','${s.categorie}')"><i class='fas fa-trash'></i></button>`;
+    ul.appendChild(li);
+  });
+}
+
+function actualizeazaListaSubcategoriiProdus(){
+  const selCat = document.getElementById('selectCategorieProdus');
+  const selSub = document.getElementById('selectSubcategorieProdus');
+  if(!selCat || !selSub) return;
+  const cat = selCat.value || categorii[0] || '';
+  selSub.innerHTML = '';
+  subcategorii.filter(s => s.categorie === cat).forEach(s => {
+    const opt = document.createElement('option'); opt.value = s.nume; opt.textContent = s.nume;
+    selSub.appendChild(opt);
+  });
+  // if no subcategories, keep empty option
+  if(selSub.children.length === 0){
+    const opt = document.createElement('option'); opt.value = ''; opt.textContent = '';
+    selSub.appendChild(opt);
+  }
+}
+
+/* hook selects to update dependent lists when changed */
+document.addEventListener('change', (ev) => {
+  if(!ev.target) return;
+  if(ev.target.id === 'selectCategorieSub') actualizeazaListaSubcategorii();
+  if(ev.target.id === 'selectCategorieProdus') actualizeazaListaSubcategoriiProdus();
+});
+
+/* init UI on load */
+document.addEventListener('DOMContentLoaded', () => {
+  actualizeazaListaCategorii();
+  actualizeazaSelecturi();
+  actualizeazaFiltruCategorii();
+  afiseazaProduse();
+});
+
+/* when remote JSON reload finishes, refresh UI */
+function refreshAfterRemoteLoad(){
+  actualizeazaListaCategorii();
+  actualizeazaSelecturi();
+  actualizeazaFiltruCategorii();
+  afiseazaProduse();
+}
+// call refreshAfterRemoteLoad() where you replace localStorage after fetch
 </script>
 
 <!-- 🧠 Reîncărcare automată a catalog.json fără cache -->
