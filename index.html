@@ -338,16 +338,36 @@ function afiseazaProduse(){
   });
 }
 function toggleSubsub(id,val){const p=produse.find(x=>x.id===id);if(p){p.afiseazaSubsub=val;salveaza();}}
-function editeazaProdus(id){const p=produse.find(x=>x.id===id);const div=document.getElementById('produs-'+id);div.innerHTML=`<input id='nume-${id}' value='${p.nume}'><br><input id='pret-${id}' type='number' step='0.01' value='${p.pret}'><br><input id='pret36-${id}' type='number' step='0.01' value='${p.pret36 || ''}'><br><textarea id='desc-${id}' rows='3'>${p.descriere || ''}</textarea><br><input id='subsub-${id}' value='${p.subsubcategorie || ''}' placeholder='Sub-subcategorie'><br><label><input type='checkbox' id='afis-${id}' ${p.afiseazaSubsub?'checked':''}> Afișează sub-subcategoria</label><br><select id='stoc-${id}'><option value='true' ${p.stoc?'selected':''}>În stoc</option><option value='false' ${!p.stoc?'selected':''}>Nu în stoc</option></select><br><button class='btn-actiune btn-save' onclick='salveazaProdus(${p.id})'><i class="fas fa-save"></i> Salvează</button><button class='btn-actiune btn-cancel' onclick='afiseazaProduse()'><i class="fas fa-times"></i> Anulează</button>`;}
-function salveazaProdus(id){const p=produse.find(x=>x.id===id);p.nume=document.getElementById('nume-'+id).value.trim();p.pret=parseFloat(document.getElementById('pret-'+id).value);p.pret36=parseFloat(document.getElementById('pret36-'+id).value);p.descriere=document.getElementById('desc-'+id).value.trim();p.subsubcategorie=document.getElementById('subsub-'+id).value.trim();p.afiseazaSubsub=document.getElementById('afis-'+id).checked;p.stoc=document.getElementById('stoc-'+id).value==='true';salveaza();afiseazaProduse();}
-function stergeProdus(id){if(confirm('Ștergi produsul?')){produse=produse.filter(p=>p.id!==id);salveaza();afiseazaProduse();}}
-function actualizeazaSelecturi(){const catOpt=categorii.map(c=>`<option value='${c}'>${c}</option>`).join('');document.getElementById('selectCategorieProdus').innerHTML=catOpt;document.getElementById('selectCategorieSub').innerHTML=catOpt;actualizeazaListaSubcategoriiProdus();}
-function actualizeazaListaSubcategoriiProdus(){const cat=document.getElementById('selectCategorieProdus').value;const opt=subcategorii.filter(s=>s.categorie===cat).map(s=>`<option value='${s.nume}'>${s.nume}</option>`).join('');document.getElementById('selectSubcategorieProdus').innerHTML=opt;}
-function actualizeazaTot(){actualizeazaListaCategorii();actualizeazaListaSubcategorii();afiseazaProduse();}
-function filtreazaInStoc(){filtratInStoc=true;afiseazaProduse();document.getElementById('butonFiltru').style.display='none';document.getElementById('butonToate').style.display='inline-block';}
-function afiseazaToateProdusele(){filtratInStoc=false;afiseazaProduse();document.getElementById('butonFiltru').style.display='inline-block';document.getElementById('butonToate').style.display='none';}
-function init(){if(categorii.length===0)categorii=['Default'];actualizeazaTot();}
-window.onload=init;
+function editeazaProdus(id){const p=produse.find(x=>x.id===id);const div=document.getElementById('produs-'+id);if(!p||!div)return;div.innerHTML=`
+    <input id="nume-${id}" value="${p.nume}"><br>
+    <input id="pret-${id}" type="number" step="0.01" value="${p.pret}" oninput="document.getElementById('pret36-${id}').value = calcPret36(this.value)"><br>
+    <input id="pret36-${id}" type="text" value="${p.pret36 || ''}"><br>
+    <textarea id="desc-${id}" rows="3">${p.descriere || ''}</textarea><br>
+    <input id="subsub-${id}" value="${p.subsubcategorie || ''}" placeholder="Sub-subcategorie"><br>
+    <label><input type="checkbox" id="afis-${id}" ${p.afiseazaSubsub ? 'checked' : ''}> Afișează sub-subcategoria</label><br>
+    <select id="stoc-${id}"><option value="true" ${p.stoc ? 'selected' : ''}>În stoc</option><option value="false" ${!p.stoc ? 'selected' : ''}>Nu în stoc</option></select><br>
+    <button class="btn-actiune btn-save" onclick="salveazaProdus(${p.id})"><i class="fas fa-save"></i> Salvează</button>
+    <button class="btn-actiune btn-cancel" onclick="afiseazaProduse()"><i class="fas fa-times"></i> Anulează</button>
+  `;
+}
+
+/* helper: calculează prețul pentru 36 luni */
+function calcPret36(val){
+  const n = parseFloat(String(val).replace(',', '.'));
+  if (isNaN(n)) return '';
+  const r = n / 36;
+  return Number.isInteger(r) ? String(r) : r.toFixed(2);
+}
+
+// actualizează câmpul "pret36" din formularul principal în timp ce scrii
+const pretMain = document.getElementById('pretProdus');
+if (pretMain) {
+  pretMain.addEventListener('input', (e) => {
+    const el = document.getElementById('pret36');
+    if (el) el.value = calcPret36(e.target.value);
+  });
+}
+
 </script>
 
 <!-- 🧠 Reîncărcare automată a catalog.json fără cache -->
